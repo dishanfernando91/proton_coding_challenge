@@ -1,4 +1,3 @@
-// import { useState } from "react";
 import "./styles.css";
 
 import { Position } from "../../../store/navigation.reducer";
@@ -7,16 +6,16 @@ import RobotSvg from "../../../assets/robot.svg";
 interface CellProps {
   cellPosition: Position;
   isOccupied: boolean;
-  teleportRobot: (x: number, y: number) => void;
+  setNewPosition: React.Dispatch<React.SetStateAction<Position | undefined>>;
 }
 
 const Cell: React.FC<CellProps> = ({
   cellPosition,
   isOccupied,
-  teleportRobot,
+  setNewPosition,
 }) => {
   return (
-    <div className="cell-body" onClick={() => teleportRobot(cellPosition)}>
+    <div className="cell-body" onClick={() => setNewPosition(cellPosition)}>
       {isOccupied ? (
         <img
           src={RobotSvg}

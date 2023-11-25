@@ -1,11 +1,19 @@
+import { useState, useEffect } from "react";
 import { Cell } from "./Cell";
 import useNavigation from "../../hooks/useNavigation";
 import isEqual from "lodash.isequal";
+
+import type { Position } from "../../types";
 
 import "./styles.css";
 
 const Table = () => {
   const { position, teleportRobot } = useNavigation();
+  const [newPosition, setNewPosition] = useState<Position | undefined>();
+
+  useEffect(() => {
+    newPosition && teleportRobot(position, newPosition);
+  }, [newPosition, isEqual(position, newPosition)]);
 
   const renderCells = () => {
     const cells = [];
@@ -16,7 +24,7 @@ const Table = () => {
             key={`${x}-${y}`}
             cellPosition={{ x, y }}
             isOccupied={isEqual(position, { x, y })}
-            teleportRobot={teleportRobot}
+            setNewPosition={setNewPosition}
           />
         );
       }

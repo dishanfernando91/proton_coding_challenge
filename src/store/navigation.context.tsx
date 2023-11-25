@@ -7,6 +7,8 @@ import navigationReducer, {
 } from "./navigation.reducer";
 import NAV_ACTIONS from "./navigation.actions";
 
+import calculateDelay from "../utils/functions/teleportDelay";
+
 export const NavigationContext = createContext<PositionState>(initialState);
 
 export const NavigationProvider = ({
@@ -21,11 +23,20 @@ export const NavigationProvider = ({
       type: direction,
     });
 
-  const teleportRobot = (position: Position) => {
-    dispatch({
-      type: NAV_ACTIONS.TELEPORT,
-      payload: position,
-    });
+  const teleportRobot = (startPosition: Position, newPosition: Position) => {
+    const delay = calculateDelay(
+      startPosition.x,
+      newPosition.x,
+      startPosition.y,
+      newPosition.y
+    );
+
+    setTimeout(() => {
+      dispatch({
+        type: NAV_ACTIONS.TELEPORT,
+        payload: newPosition,
+      });
+    }, delay);
   };
 
   const value = {
