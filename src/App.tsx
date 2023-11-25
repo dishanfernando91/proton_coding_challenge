@@ -1,10 +1,11 @@
 import "./App.css";
-import { Table } from "src/components";
+import { Table, NavPad } from "src/components";
 
 function App() {
   return (
     <>
       <Table />
+      <NavPad />
     </>
   );
 }
