@@ -4,6 +4,7 @@ const NAV_ACTIONS = {
   DOWN: "DOWN",
   LEFT: "LEFT",
   TELEPORT: "TELEPORT",
+  RESET: "RESET",
 };
 
 export default NAV_ACTIONS;

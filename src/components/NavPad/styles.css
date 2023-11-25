@@ -1,0 +1,44 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: "100%";
+  width: "100%";
+  padding: 10px;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-between;
+  background-color: green;
+}
+
+.top-button {
+  background-color: red;
+}
+.middle-group {
+  width: 250px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.middle-button {
+  background-color: white;
+}
+
+.bottom-button {
+  background-color: blue;
+}
+
+.reset-button {
+  margin-top: 15px;
+  background-color: red;
+}
+
+.reset-button:hover {
+  margin-top: 15px;
+  background-color: black;
+}

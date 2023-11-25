@@ -1,20 +1,22 @@
 // import { useState } from "react";
-import "./Cell.scss";
+import "./styles.css";
 
-import RobotSvg from "../../assets/robot.svg";
+import { Position } from "../../../store/navigation.reducer";
+import RobotSvg from "../../../assets/robot.svg";
 
 interface CellProps {
-  cellPosition: {
-    x: number;
-    y: number;
-  };
+  cellPosition: Position;
   isOccupied: boolean;
-  // onClick: (x: number, y: number) => void;
+  teleportRobot: (x: number, y: number) => void;
 }
 
-const Cell: React.FC<CellProps> = ({ cellPosition, isOccupied }) => {
+const Cell: React.FC<CellProps> = ({
+  cellPosition,
+  isOccupied,
+  teleportRobot,
+}) => {
   return (
-    <div className="cell-body" onClick={() => console.log(cellPosition)}>
+    <div className="cell-body" onClick={() => teleportRobot(cellPosition)}>
       {isOccupied ? (
         <img
           src={RobotSvg}
