@@ -1,4 +1,4 @@
-import { createContext, useReducer, useContext } from "react";
+import { createContext, useReducer } from "react";
 
 import navigationReducer, {
   initialState,
@@ -6,9 +6,9 @@ import navigationReducer, {
 } from "./navigation.reducer";
 import NAV_ACTIONS from "./navigation.actions";
 
-const NavigationContext = createContext<IInitialState>(initialState);
+export const NavigationContext = createContext<IInitialState>(initialState);
 
-// TODO: children types
+// TODO: fix children types
 export const NavigationProvider = ({ children }: { children: any }) => {
   const [state, dispatch] = useReducer(navigationReducer, initialState);
 
@@ -37,15 +37,3 @@ export const NavigationProvider = ({ children }: { children: any }) => {
     </NavigationContext.Provider>
   );
 };
-
-const useNavigation = () => {
-  const context = useContext(NavigationContext);
-
-  if (!context) {
-    throw new Error("Must be used with NavigationContext");
-  }
-
-  return context;
-};
-
-export default useNavigation;

@@ -5,13 +5,16 @@ export interface IInitialState {
     x: number;
     y: number;
   };
-  error: string | null;
+  error: boolean | null;
 }
 
 interface IAction {
   type: string;
   payload?: Pick<IInitialState, "position">;
 }
+
+const MAX_DISTANCE = 5;
+const MIN_DISTANCE = 1;
 
 export const initialState: IInitialState = {
   position: {
@@ -25,13 +28,25 @@ function navigationReducer(state: IInitialState, action: IAction) {
   const { position, error } = state;
   switch (action.type) {
     case NAV_ACTIONS.UP:
-      return { ...state, [position.y]: position.y + 1 };
+      return position.y === MAX_DISTANCE
+        ? { ...state, error: true }
+        : { ...state, position: { ...position, y: position.y + 1 } };
+
     case NAV_ACTIONS.RIGHT:
-      return { ...state, [position.x]: position.x + 1 };
+      return position.x === MAX_DISTANCE
+        ? { ...state, error: true }
+        : { ...state, position: { ...position, x: position.x + 1 } };
+
     case NAV_ACTIONS.DOWN:
-      return { ...state, [position.y]: position.y - 1 };
+      return position.y === MIN_DISTANCE
+        ? { ...state, error: true }
+        : { ...state, position: { ...position, y: position.y - 1 } };
+
     case NAV_ACTIONS.LEFT:
-      return { ...state, [position.x]: position.x - 1 };
+      return position.y === MIN_DISTANCE
+        ? { ...state, error: true }
+        : { ...state, position: { ...position, x: position.x - 1 } };
+
     case NAV_ACTIONS.TELEPORT:
       // pending
       return { ...state };
