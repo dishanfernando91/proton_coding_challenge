@@ -1,4 +1,4 @@
-import { Table, NavPad } from "src/components";
+import { Table, NavPad } from "./components";
 import { NavigationProvider } from "./store/navigation.context";
 
 import "./App.css";

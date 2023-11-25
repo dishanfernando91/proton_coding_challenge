@@ -43,7 +43,7 @@ function navigationReducer(state: IInitialState, action: IAction) {
         : { ...state, position: { ...position, y: position.y - 1 } };
 
     case NAV_ACTIONS.LEFT:
-      return position.y === MIN_DISTANCE
+      return position.x === MIN_DISTANCE
         ? { ...state, error: true }
         : { ...state, position: { ...position, x: position.x - 1 } };
 

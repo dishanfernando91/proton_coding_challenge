@@ -1,34 +1,34 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Cell } from "./Cell";
+import useNavigation from "../../hooks/useNavigation";
+import isEqual from "lodash.isequal";
 
 import "./Table.scss";
 
-const Table: React.FC = () => {
-  const [cells, setCells] = useState<boolean[][]>(
-    Array.from({ length: 5 }, () => Array(5).fill(false))
-  );
+const Table = () => {
+  const { position } = useNavigation();
 
-  const handleCellClick = (clickedX: number, clickedY: number) => {
-    setCells((prevCells) => {
-      const newCells = [...prevCells];
-      newCells[clickedX][clickedY] = !newCells[clickedX][clickedY];
-      return newCells;
-    });
+  const renderCells = () => {
+    const cells = [];
+    for (let y = 5; y >= 1; y--) {
+      for (let x = 1; x < 6; x++) {
+        cells.push(
+          <Cell
+            key={`${x}-${y}`}
+            cellPosition={{ x, y }}
+            isOccupied={isEqual(position, { x, y })}
+          />
+        );
+      }
+    }
+    return cells;
   };
 
   return (
-    <div className="grid-container">
-      {cells.map((row, x) => (
-        <div key={x} className="grid-item">
-          {row.map((isOccupied, y) => (
-            <Cell
-              key={`${x}-${y}`}
-              x={x}
-              y={y}
-              isOccupied={isOccupied}
-              onClick={handleCellClick}
-            />
-          ))}
+    <div className="cell-container">
+      {renderCells().map((cell, index) => (
+        <div key={`cell-wrapper-${index}`} className="cell-item">
+          {cell}
         </div>
       ))}
     </div>
