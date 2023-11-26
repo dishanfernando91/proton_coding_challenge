@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
-import { Cell } from "./Cell";
-import useRobotControl from "../../hooks/useRobotControls";
 import isEqual from "lodash.isequal";
 
+import { Cell } from "./Cell";
+
+import useRobotControl from "../../hooks/useRobotControls";
+import { MAX_DISTANCE, MIN_DISTANCE } from "../../utils/constants";
 import type { Position } from "../../types";
 
 import "./styles.css";
@@ -20,14 +22,15 @@ const Table = () => {
     setNewPosition(undefined);
   }, [newPosition, isEqual(position, newPosition)]);
 
+  // remove travel message and enable navpad
   useEffect(() => {
     !newPosition && completeTeleport();
   }, [position]);
 
   const renderCells = () => {
     const cells = [];
-    for (let y = 5; y >= 1; y--) {
-      for (let x = 1; x < 6; x++) {
+    for (let y = MAX_DISTANCE; y >= MIN_DISTANCE; y--) {
+      for (let x = MIN_DISTANCE; x <= MAX_DISTANCE; x++) {
         cells.push(
           <Cell
             key={`${x}-${y}`}
