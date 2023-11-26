@@ -1,5 +1,5 @@
 const MAX_DISTANCE = 5;
 const MIN_DISTANCE = 1;
-const DELAY_UNIT = 1000;
+const DELAY_UNIT = 500;
 
 export { MAX_DISTANCE, MIN_DISTANCE, DELAY_UNIT };

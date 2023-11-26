@@ -3,10 +3,12 @@ import React, { createContext, useReducer } from "react";
 import robotControlReducer, { initialState } from "./robotControl.reducer";
 import ROBOT_ACTIONS from "./robotControl.actions";
 
-import type { PositionState, Position } from "../../types";
+import type { RobotControlContextState, Position } from "../../types";
 import calculateDelay from "../../utils/functions/teleportDelay";
 
-export const RobotControlContext = createContext<PositionState>(initialState);
+export const RobotControlContext = createContext<RobotControlContextState>(
+  initialState as RobotControlContextState
+);
 
 export const RobotControlProvider = ({
   children,
