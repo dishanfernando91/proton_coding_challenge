@@ -1,4 +1,4 @@
-const DELAY_UNIT = 1000;
+import { DELAY_UNIT } from "../constants";
 
 const calculateDelay = (
   x1: number,

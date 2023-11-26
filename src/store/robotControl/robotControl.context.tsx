@@ -1,19 +1,19 @@
 import React, { createContext, useReducer } from "react";
 
-import navigationReducer, { initialState } from "./navigation.reducer";
-import NAV_ACTIONS from "./navigation.actions";
+import robotControlReducer, { initialState } from "./robotControl.reducer";
+import ROBOT_ACTIONS from "./robotControl.actions";
 
-import type { PositionState, Position } from "../types";
-import calculateDelay from "../utils/functions/teleportDelay";
+import type { PositionState, Position } from "../../types";
+import calculateDelay from "../../utils/functions/teleportDelay";
 
-export const NavigationContext = createContext<PositionState>(initialState);
+export const RobotControlContext = createContext<PositionState>(initialState);
 
-export const NavigationProvider = ({
+export const RobotControlProvider = ({
   children,
 }: {
   children: React.ReactNode;
 }) => {
-  const [state, dispatch] = useReducer(navigationReducer, initialState);
+  const [state, dispatch] = useReducer(robotControlReducer, initialState);
 
   const moveRobot = (direction: string) =>
     dispatch({
@@ -22,13 +22,13 @@ export const NavigationProvider = ({
 
   const completeTeleport = () => {
     dispatch({
-      type: NAV_ACTIONS.TELEPORT_COMPLETE,
+      type: ROBOT_ACTIONS.TELEPORT_COMPLETE,
     });
   };
 
   const teleportRobot = (startPosition: Position, newPosition: Position) => {
     dispatch({
-      type: NAV_ACTIONS.TELEPORTING,
+      type: ROBOT_ACTIONS.TELEPORTING,
     });
 
     const delay = calculateDelay(
@@ -40,7 +40,7 @@ export const NavigationProvider = ({
 
     setTimeout(() => {
       dispatch({
-        type: NAV_ACTIONS.TELEPORT,
+        type: ROBOT_ACTIONS.TELEPORT,
         payload: newPosition,
       });
     }, delay);
@@ -56,8 +56,8 @@ export const NavigationProvider = ({
   };
 
   return (
-    <NavigationContext.Provider value={value}>
+    <RobotControlContext.Provider value={value}>
       {children}
-    </NavigationContext.Provider>
+    </RobotControlContext.Provider>
   );
 };

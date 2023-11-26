@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Cell } from "./Cell";
-import useNavigation from "../../hooks/useNavigation";
+import useRobotControl from "../../hooks/useRobotControls";
 import isEqual from "lodash.isequal";
 
 import type { Position } from "../../types";
@@ -9,7 +9,7 @@ import "./styles.css";
 
 const Table = () => {
   const { position, teleportRobot, isTraversing, completeTeleport } =
-    useNavigation();
+    useRobotControl();
 
   const [newPosition, setNewPosition] = useState<Position | undefined>();
 
