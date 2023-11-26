@@ -8,12 +8,21 @@ import type { Position } from "../../types";
 import "./styles.css";
 
 const Table = () => {
-  const { position, teleportRobot } = useNavigation();
+  const { position, teleportRobot, isTraversing, completeTeleport } =
+    useNavigation();
+
   const [newPosition, setNewPosition] = useState<Position | undefined>();
 
   useEffect(() => {
-    newPosition && teleportRobot(position, newPosition);
+    if (newPosition) {
+      teleportRobot(position, newPosition);
+    }
+    setNewPosition(undefined);
   }, [newPosition, isEqual(position, newPosition)]);
+
+  useEffect(() => {
+    !newPosition && completeTeleport();
+  }, [position]);
 
   const renderCells = () => {
     const cells = [];
@@ -25,6 +34,7 @@ const Table = () => {
             cellPosition={{ x, y }}
             isOccupied={isEqual(position, { x, y })}
             setNewPosition={setNewPosition}
+            isTraversing={isTraversing}
           />
         );
       }
@@ -33,12 +43,19 @@ const Table = () => {
   };
 
   return (
-    <div className="cell-container">
-      {renderCells().map((cell, index) => (
-        <div key={`cell-wrapper-${index}`} className="cell-item">
-          {cell}
+    <div>
+      <div className="cell-container">
+        {renderCells().map((cell, index) => (
+          <div key={`cell-wrapper-${index}`} className="cell-item">
+            {cell}
+          </div>
+        ))}
+      </div>
+      {isTraversing ? (
+        <div className="text-container">
+          <p className="alert-text">Prontoroid is travelling!</p>
         </div>
-      ))}
+      ) : null}
     </div>
   );
 };

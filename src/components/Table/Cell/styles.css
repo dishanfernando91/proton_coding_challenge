@@ -2,4 +2,9 @@
   width: 40px;
   height: 40px;
   background: "white";
+  cursor: pointer;
+}
+
+.disabled:hover {
+  cursor: not-allowed;
 }
