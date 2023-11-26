@@ -6,7 +6,7 @@ import ArrowSvg from "../../assets/arrow.svg";
 import "./styles.css";
 
 export default function NavPad() {
-  const { moveRobo, isTraversing } = useNavigation();
+  const { moveRobot, isTraversing } = useNavigation();
 
   return (
     <div className="container">
