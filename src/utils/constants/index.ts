@@ -1,0 +1,4 @@
+const MAX_DISTANCE = 5;
+const MIN_DISTANCE = 1;
+
+export { MAX_DISTANCE, MIN_DISTANCE };

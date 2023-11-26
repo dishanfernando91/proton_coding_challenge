@@ -1,28 +1,28 @@
 import NAV_ACTIONS from "./navigation.actions";
 
-const MAX_DISTANCE = 5;
-const MIN_DISTANCE = 1;
-
-export interface Position {
-  x: number;
-  y: number;
-}
-export interface PositionState {
-  position: Position;
-  error: boolean | null;
-}
-interface Action {
-  type: string;
-  payload?: Pick<PositionState["position"], "x" | "y">;
-}
+import { MAX_DISTANCE, MIN_DISTANCE } from "../utils/constants";
+import type { PositionState, Action } from "../types";
 
 export const initialState: PositionState = {
   position: {
     x: 1,
     y: 1,
   },
-  error: null,
+  error: false,
+  isTraversing: false,
 };
+
+const {
+  UP,
+  DOWN,
+  LEFT,
+  RIGHT,
+  TELEPORT,
+  TELEPORTING,
+  TELEPORT_COMPLETE,
+  RESET,
+  CLEAR_ERROR,
+} = NAV_ACTIONS;
 
 function navigationReducer(
   state: PositionState,
@@ -30,35 +30,62 @@ function navigationReducer(
 ): PositionState {
   const { position, error } = state;
   switch (action.type) {
-    case NAV_ACTIONS.UP:
+    case UP:
       return position.y === MAX_DISTANCE
         ? { ...state, error: true }
-        : { ...state, position: { ...position, y: position.y++ } };
+        : {
+            ...state,
+            error: false,
+            position: { ...position, y: position.y + 1 },
+          };
 
-    case NAV_ACTIONS.RIGHT:
+    case RIGHT:
       return position.x === MAX_DISTANCE
         ? { ...state, error: true }
-        : { ...state, position: { ...position, x: position.x++ } };
+        : {
+            ...state,
+            error: false,
+            position: { ...position, x: position.x + 1 },
+          };
 
-    case NAV_ACTIONS.DOWN:
+    case DOWN:
       return position.y === MIN_DISTANCE
         ? { ...state, error: true }
-        : { ...state, position: { ...position, y: position.y-- } };
+        : {
+            ...state,
+            error: false,
+            position: { ...position, y: position.y - 1 },
+          };
 
-    case NAV_ACTIONS.LEFT:
+    case LEFT:
       return position.x === MIN_DISTANCE
         ? { ...state, error: true }
-        : { ...state, position: { ...position, x: position.x-- } };
+        : {
+            ...state,
+            error: false,
+            position: { ...position, x: position.x - 1 },
+          };
 
-    case NAV_ACTIONS.TELEPORT:
+    case TELEPORT:
       return action?.payload
         ? {
             ...state,
             position: action.payload,
           }
         : { ...state, error: true };
-    case NAV_ACTIONS.RESET:
-      return { position: { x: 1, y: 1 }, error: null };
+
+    case TELEPORTING:
+      return { ...state, error: false, isTraversing: true };
+
+    case TELEPORT_COMPLETE:
+      return { ...state, error: false, isTraversing: false };
+
+    case CLEAR_ERROR:
+      return { ...state, error: false };
+
+    case RESET:
+      return initialState;
+
     default:
       return state;
   }

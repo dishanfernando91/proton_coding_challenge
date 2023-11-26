@@ -6,8 +6,10 @@ import "./App.css";
 function App() {
   return (
     <NavigationProvider>
-      <Table />
-      <NavPad />
+      <div className="body">
+        <Table />
+        <NavPad />
+      </div>
     </NavigationProvider>
   );
 }

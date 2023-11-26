@@ -1,22 +1,28 @@
-// import { useState } from "react";
 import "./styles.css";
 
-import { Position } from "../../../store/navigation.reducer";
 import RobotSvg from "../../../assets/robot.svg";
+import type { Position } from "../../../types";
 
 interface CellProps {
   cellPosition: Position;
   isOccupied: boolean;
-  teleportRobot: (x: number, y: number) => void;
+  setNewPosition: React.Dispatch<React.SetStateAction<Position | undefined>>;
+  isTraversing: boolean | undefined;
 }
 
 const Cell: React.FC<CellProps> = ({
   cellPosition,
   isOccupied,
-  teleportRobot,
+  setNewPosition,
+  isTraversing,
 }) => {
   return (
-    <div className="cell-body" onClick={() => teleportRobot(cellPosition)}>
+    <div
+      className={`cell-body ${isTraversing && "disabled"}`}
+      onClick={() => {
+        !isTraversing && setNewPosition(cellPosition);
+      }}
+    >
       {isOccupied ? (
         <img
           src={RobotSvg}
