@@ -1,16 +1,16 @@
 import { Table, NavPad } from "./components";
-import { NavigationProvider } from "./store/navigation.context";
+import { RobotControlProvider } from "./store/robotControl/robotControl.context";
 
 import "./App.css";
 
 function App() {
   return (
-    <NavigationProvider>
+    <RobotControlProvider>
       <div className="body">
         <Table />
         <NavPad />
       </div>
-    </NavigationProvider>
+    </RobotControlProvider>
   );
 }
 

@@ -1,12 +1,18 @@
-import useNavigation from "../../hooks/useNavigation";
-import NAV_ACTIONS from "../../store/navigation.actions";
+import useRobotControl from "../../hooks/useRobotControls";
+import ROBOT_CONTROLS from "../../store/robotControl/robotControl.actions";
 
 import ArrowSvg from "../../assets/arrow.svg";
 
 import "./styles.css";
 
 export default function NavPad() {
-  const { moveRobot, isTraversing } = useNavigation();
+  const { moveRobot, isTraversing } = useRobotControl();
+
+  const styles = {
+    height: 60,
+    width: 60,
+    cursor: isTraversing ? "not-allowed" : "pointer",
+  };
 
   return (
     <div className="container">
@@ -14,51 +20,41 @@ export default function NavPad() {
         <img
           src={ArrowSvg}
           alt="Arrow SVG"
-          style={{
-            height: 60,
-            width: 60,
-            cursor: isTraversing ? "not-allowed" : "pointer",
-          }}
-          onClick={() => !isTraversing && moveRobot(NAV_ACTIONS.UP)}
+          style={styles}
+          onClick={() => !isTraversing && moveRobot(ROBOT_CONTROLS.UP)}
         />
         <div className="middle-group">
           <img
             src={ArrowSvg}
             alt="Arrow SVG"
             style={{
-              height: 60,
-              width: 60,
+              ...styles,
               transform: "rotate(-90deg)",
-              cursor: isTraversing ? "not-allowed" : "pointer",
             }}
-            onClick={() => !isTraversing && moveRobot(NAV_ACTIONS.LEFT)}
+            onClick={() => !isTraversing && moveRobot(ROBOT_CONTROLS.LEFT)}
           />
           <img
             src={ArrowSvg}
             alt="Arrow SVG"
             style={{
-              height: 60,
-              width: 60,
+              ...styles,
               transform: "rotate(90deg)",
-              cursor: isTraversing ? "not-allowed" : "pointer",
             }}
-            onClick={() => moveRobot(NAV_ACTIONS.RIGHT)}
+            onClick={() => !isTraversing && moveRobot(ROBOT_CONTROLS.RIGHT)}
           />
         </div>
         <img
           src={ArrowSvg}
           alt="Arrow SVG"
           style={{
-            height: 60,
-            width: 60,
+            ...styles,
             transform: "rotate(180deg)",
-            cursor: isTraversing ? "not-allowed" : "pointer",
           }}
-          onClick={() => !isTraversing && moveRobot(NAV_ACTIONS.DOWN)}
+          onClick={() => !isTraversing && moveRobot(ROBOT_CONTROLS.DOWN)}
         />
       </div>
       <button
-        onClick={() => !isTraversing && moveRobot(NAV_ACTIONS.RESET)}
+        onClick={() => !isTraversing && moveRobot(ROBOT_CONTROLS.RESET)}
         className="reset-button"
       >
         Reset Position

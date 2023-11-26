@@ -1,7 +1,7 @@
-import NAV_ACTIONS from "./navigation.actions";
+import ROBOT_ACTIONS from "./robotControl.actions";
 
-import { MAX_DISTANCE, MIN_DISTANCE } from "../utils/constants";
-import type { PositionState, Action } from "../types";
+import { MAX_DISTANCE, MIN_DISTANCE } from "../../utils/constants";
+import type { PositionState, Action } from "../../types";
 
 export const initialState: PositionState = {
   position: {
@@ -22,13 +22,13 @@ const {
   TELEPORT_COMPLETE,
   RESET,
   CLEAR_ERROR,
-} = NAV_ACTIONS;
+} = ROBOT_ACTIONS;
 
-function navigationReducer(
+function robotControlReducer(
   state: PositionState,
   action: Action
 ): PositionState {
-  const { position, error } = state;
+  const { position } = state;
   switch (action.type) {
     case UP:
       return position.y === MAX_DISTANCE
@@ -91,4 +91,4 @@ function navigationReducer(
   }
 }
 
-export default navigationReducer;
+export default robotControlReducer;

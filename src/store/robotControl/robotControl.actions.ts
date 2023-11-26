@@ -1,4 +1,4 @@
-const NAV_ACTIONS = {
+const ROBOT_ACTIONS = {
   UP: "UP",
   RIGHT: "RIGHT",
   DOWN: "DOWN",
@@ -10,4 +10,4 @@ const NAV_ACTIONS = {
   CLEAR_ERROR: "CLEAR_ERROR",
 };
 
-export default NAV_ACTIONS;
+export default ROBOT_ACTIONS;
