@@ -56,7 +56,7 @@ const Table = () => {
       </div>
       {isTraversing ? (
         <div className="text-container">
-          <p className="alert-text">Prontoroid is travelling!</p>
+          <p className="alert-text">Prontoroid is traveling!</p>
         </div>
       ) : null}
     </div>
